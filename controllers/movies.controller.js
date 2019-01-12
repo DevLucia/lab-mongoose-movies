@@ -1,27 +1,57 @@
-const User = require('../models/user.model');
+const Celebrity = require('../models/celebrities.model');
+const Movie = require('../models/movies.model');
 
 module.exports.list = (req, res, next) => {
-  User.find()
-    .then((users) => res.render('users/list', { users }));
+  Celebrity.find()
+    .then((celebrities) => res.render('celebrities/index', { celebrities }))
+    .catch(next);
 }
 
 module.exports.create = (req, res, next) => {
-  res.render('users/create');
+  User.find()
+    .then((users) => res.render('books/form', { book: new Book(), users }));
 }
-//El req.body es lo del body Parser. No hace falta requerirlo, porque ya está hecho en el app.js
-module.exports.doCreate = (req, res, next) => {
-  const user = new User(req.body);
 
-  user.save()
-    .then((user) => { res.redirect('/users' )});
+module.exports.doCreate = (req, res, next) => {
+  const book = new Book(req.body);
+
+  book.save()
+    .then((book) => { res.redirect('/books' )});
+}
+
+module.exports.edit = (req, res, next) => {
+  Promise.all([
+    User.find(),
+    Book.findById(req.params.id)
+  ])
+  .then((results) => {
+    const users = results[0];
+    const book = results[1]
+
+    res.render('books/form', { book, users })
+  })
+}
+
+module.exports.doEdit = (req, res, next) => {
+  Book.findById(req.params.id)
+    .then((book) => {
+      book.set(req.body);
+
+      book.save()
+        .then((book) => { res.redirect('/books' )});
+    })
 }
 
 module.exports.get = (req, res, next) => {
-  User.findById(req.params.id)
-    .then(user => res.render('users/detail', { user }));
+  Book.findById(req.params.id)
+    .then(book => {
+
+      User.findById(book.user)
+        .then((user) => res.render('books/detail', { book, user }))
+    });
 }
 
 module.exports.delete = (req, res, next) => {
-  User.findByIdAndDelete(req.params.id)
-    .then(user => res.redirect('/users'));
+  Book.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/books'));
 }

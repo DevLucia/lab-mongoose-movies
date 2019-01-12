@@ -8,22 +8,23 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  User.find()
-    .then((users) => res.render('books/form', { book: new Book(), users }));
+res.render('celebrities/new');
 }
 
 module.exports.doCreate = (req, res, next) => {
-  const book = new Book(req.body);
-
-  book.save()
-    .then((book) => { res.redirect('/books' )});
+  console.log("Holita")
+  const celebrity = new Celebrity(req.body);
+  console.log(celebrity)
+  celebrity.save()
+    .then(() => { res.redirect('/celebrities')});
 }
 
 module.exports.edit = (req, res, next) => {
-  Promise.all([
-    User.find(),
-    Book.findById(req.params.id)
-  ])
+  // Promise.all([
+  //   User.find(),
+  //   Book.findById(req.params.id)
+  // ])
+ celebrities.findById(req.params.id)
   .then((results) => {
     const users = results[0];
     const book = results[1]
@@ -32,25 +33,24 @@ module.exports.edit = (req, res, next) => {
   })
 }
 
-module.exports.doEdit = (req, res, next) => {
-  Book.findById(req.params.id)
-    .then((book) => {
-      book.set(req.body);
+// module.exports.doEdit = (req, res, next) => {
+//   Book.findById(req.params.id)
+//     .then((book) => {
+//       book.set(req.body);
 
-      book.save()
-        .then((book) => { res.redirect('/books' )});
-    })
-}
+//       book.save()
+//         .then((book) => { res.redirect('/books' )});
+//     })
+// }
 
 module.exports.get = (req, res, next) => {
   Celebrity.findById(req.params.id)
     .then(celebrity => {
-
-      res.render('celebrity/show', { celebrity }))
+      res.render('celebrities/show', { celebrity })
     });
 }
 
-// module.exports.delete = (req, res, next) => {
-//   Book.findByIdAndDelete(req.params.id)
-//     .then(() => res.redirect('/books'));
-// }
+module.exports.delete = (req, res, next) => {
+  Celebrity.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/celebrities'));
+}

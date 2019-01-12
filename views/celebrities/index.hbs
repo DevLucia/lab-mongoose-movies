@@ -1,0 +1,8 @@
+<h2>Celebrities Page</h2>
+<a href="/celebrities/new">New Celebrity</a>
+<ul>
+{{#each celebrities as |celebrity| }}
+<li><a href="/celebrities/{{ celebrity._id }}">{{celebrity.name}}</a></li>
+{{/each}}
+</ul>
+<a href="/celebrities"></a>

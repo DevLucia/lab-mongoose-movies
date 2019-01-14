@@ -4,7 +4,7 @@
   <form action="/celebrities/new" method="post">
 {{else}}
   <h2>Edit Celebrity</h2>
-  <form action="/celebrities/{{celebrity._id}}/edit" method="post">
+  <form action="/celebrities/{{celebrity._id}}/new" method="post">
 {{/if}}
   <div>
     Name:<input type="text" name="name" value="{{celebrity.name}}">

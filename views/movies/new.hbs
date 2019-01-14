@@ -1,0 +1,19 @@
+{{#if movie.isNew }}
+  <h2>New movie</h2>
+  <form action="/movies/new" method="post">
+{{else}}
+  <h2>Edit movie</h2>
+  <form action="/movies/{{movie._id}}/edit" method="post">
+{{/if}}
+  <div>
+    Title:<input type="text" name="title" value="{{movie.title}}">
+  </div>
+  <div>
+    Genre:<input type="text" name="genre" value="{{movie.genre}}">
+  </div>
+    <div>
+    Plot:<input type="text" name="plot" value="{{movie.plot}}">
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

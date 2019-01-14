@@ -2,56 +2,50 @@ const Celebrity = require('../models/celebrities.model');
 const Movie = require('../models/movies.model');
 
 module.exports.list = (req, res, next) => {
-  Celebrity.find()
-    .then((celebrities) => res.render('celebrities/index', { celebrities }))
+  Movie.find()
+    .then((movies) => res.render('movies/index', { movies }))
     .catch(next);
 }
 
 module.exports.create = (req, res, next) => {
-  User.find()
-    .then((users) => res.render('books/form', { book: new Book(), users }));
+  Movie.find()
+  .then((movies) => res.render('movies/new', { movie: new Movie(), movies}));
 }
 
 module.exports.doCreate = (req, res, next) => {
-  const book = new Book(req.body);
-
-  book.save()
-    .then((book) => { res.redirect('/books' )});
+  const movie = new Movie(req.body);
+  movie.save()
+    .then(() => { res.redirect('/movies')});
 }
 
 module.exports.edit = (req, res, next) => {
-  Promise.all([
-    User.find(),
-    Book.findById(req.params.id)
-  ])
-  .then((results) => {
-    const users = results[0];
-    const book = results[1]
-
-    res.render('books/form', { book, users })
+  // Promise.all([
+  //   User.find(),
+  //   Book.findById(req.params.id)
+  // ])
+ Movie.findById(req.params.id)
+  .then((movie) => { res.render('movies/new', { movie })
+  .catch(next);
   })
 }
 
 module.exports.doEdit = (req, res, next) => {
-  Book.findById(req.params.id)
-    .then((book) => {
-      book.set(req.body);
-
-      book.save()
-        .then((book) => { res.redirect('/books' )});
+  Movie.findById(req.params.id)
+    .then((movie) => {
+      movie.set(req.body);
+      movie.save()
+        .then((movie) => {res.render('movies/new', { movie })})
     })
 }
 
 module.exports.get = (req, res, next) => {
-  Book.findById(req.params.id)
-    .then(book => {
-
-      User.findById(book.user)
-        .then((user) => res.render('books/detail', { book, user }))
+  Movie.findById(req.params.id)
+    .then(movie => {
+      res.render('movies/show', { movie })
     });
 }
 
 module.exports.delete = (req, res, next) => {
-  Book.findByIdAndDelete(req.params.id)
-    .then(() => res.redirect('/books'));
+  Movie.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/movies'));
 }

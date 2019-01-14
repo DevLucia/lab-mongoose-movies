@@ -34,7 +34,7 @@ module.exports.doEdit = (req, res, next) => {
     .then((celebrity) => {
       celebrity.set(req.body);
       celebrity.save()
-        .then((celebrity) => {res.redirect('/celebrities')});
+        .then((celebrity) => {res.render('celebrities/new', { celebrity })})
     })
 }
 

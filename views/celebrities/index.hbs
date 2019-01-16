@@ -1,8 +1,11 @@
-<h2>Celebrities Page</h2>
-<a href="/celebrities/new">New Celebrity</a>
-<ul>
-{{#each celebrities as |celebrity| }}
-<li><a href="/celebrities/{{ celebrity._id }}">{{celebrity.name}}</a></li>
-{{/each}}
-</ul>
-<a href="/celebrities"></a>
+<div class="container pt-5">
+  <h2>Celebrities Page</h2>
+  <a href="/celebrities/new">New Celebrity</a>
+  <ul class="list-group pt-2">
+    {{#each celebrities as |celebrity| }}
+    <li class="list-group-item"><a href="/celebrities/{{ celebrity._id }}">{{celebrity.name}}</a></li>
+    {{/each}}
+  </ul>
+  <a href="/celebrities"></a>
+</div>
+

@@ -1,8 +1,10 @@
-<h2>Movies Page</h2>
-<a href="/movies/new">New Movie</a>
-<ul>
-{{#each movies as |movie| }}
-<li><a href="/movies/{{ movie._id }}">{{movie.title}}</a></li>
-{{/each}}
-</ul>
-<a href="/movies"></a>
+<div class="container pt-5">
+  <h2>Movies Page</h2>
+  <a href="/movies/new">New Movie</a>
+  <ul class="list-group pt-2">
+    {{#each movies as |movie| }}
+    <li class="list-group-item"><a href="/movies/{{ movie._id }}">{{movie.title}}</a></li>
+    {{/each}}
+  </ul>
+  <a href="/movies"></a>
+</div>

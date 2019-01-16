@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 const logger = require('morgan');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
@@ -22,8 +22,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/celebrities', celebritiesRoutes)
 app.use('/movies', moviesRoutes)
 
-app.get('/',(req, res, next) => {
-    res.render('index')
-  })
+app.get('/', (req, res, next) => {
+  res.render('index');
+});
 
 app.listen(PORT, () => console.info(`App listen at ${PORT} port`));

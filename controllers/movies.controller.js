@@ -17,7 +17,7 @@ module.exports.create = (req, res, next) => {
     const celebrities = results[0];
     res.render('movies/new', { movie: new Movie(), celebrities })
   })
- }
+}
 
 module.exports.doCreate = (req, res, next) => {
   const movie = new Movie(req.body);
@@ -33,10 +33,10 @@ module.exports.edit = (req, res, next) => {
   ])
   .then((results) => {
     const celebrities = results[0];
-    const movie = results[1]
-
+    const movie = results[1];
     res.render('movies/new', { movie, celebrities })
   })
+
 }
 
  module.exports.doEdit = (req, res, next) => {
@@ -53,8 +53,8 @@ module.exports.get = (req, res, next) => {
     .populate('celebrity')
     .then(movie => {
       Movie.findById(movie.celebrity)
-      .then((celebrity) => res.render('movies/show', { movie, celebrity }))
-    });
+    .then((celebrity) => res.render('movies/show', { movie, celebrity }))
+  });
 }
 
 module.exports.delete = (req, res, next) => {

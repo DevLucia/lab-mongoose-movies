@@ -3,7 +3,7 @@
   <a href="/movies/new">New Movie</a>
   <ul class="list-group pt-2">
     {{#each movies as |movie| }}
-    <li class="list-group-item"><a href="/movies/{{ movie._id }}">{{movie.title}}</a></li>
+    <li class="list-group-item"><a href="/movies/{{ movie._id }}">{{movie.title}}</a>, featuring <a href="/celebrities/{{ celebrity._id }}">{{movie.celebrity.name}}</a></li>
     {{/each}}
   </ul>
   <a href="/movies"></a>

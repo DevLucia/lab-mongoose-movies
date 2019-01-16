@@ -9,9 +9,15 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  Movie.find()
-  .then((movies) => res.render('movies/new', { movie: new Movie(), movies}));
-}
+  Promise.all([
+    Celebrity.find(),
+    Movie.find()
+  ])
+  .then((results) => {
+    const celebrities = results[0];
+    res.render('movies/new', { movie: new Movie(), celebrities })
+  })
+ }
 
 module.exports.doCreate = (req, res, next) => {
   const movie = new Movie(req.body);

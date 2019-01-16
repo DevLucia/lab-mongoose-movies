@@ -1,5 +1,4 @@
 const Celebrity = require('../models/celebrities.model');
-const Movie = require('../models/movies.model');
 
 module.exports.list = (req, res, next) => {
   Celebrity.find()
@@ -19,14 +18,11 @@ module.exports.doCreate = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-  // Promise.all([
-  //   User.find(),
-  //   Book.findById(req.params.id)
-  // ])
+
  Celebrity.findById(req.params.id)
-  .then((celebrity) => { res.render('celebrities/new', { celebrity })
+  .then((celebrity) => res.render('celebrities/new', { celebrity }))
   .catch(next);
-  })
+  
 }
 
 module.exports.doEdit = (req, res, next) => {
@@ -34,7 +30,7 @@ module.exports.doEdit = (req, res, next) => {
     .then((celebrity) => {
       celebrity.set(req.body);
       celebrity.save()
-        .then((celebrity) => {res.render('celebrities/new', { celebrity })})
+        .then(() => {res.redirect('/celebrities')})
     })
 }
 
